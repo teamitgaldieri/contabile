@@ -202,7 +202,7 @@ class PayPalWebhook implements ShouldQueue
         $merchant_id = $order['purchase_units'][0]['payee']['merchant_id'];
         if(!$payment_hash) {
 
-            $ninja_company = Company::on('db-ninja-01')->find(config('ninja.ninja_default_company_id'));
+            $ninja_company = Company::on('contabile')->find(config('ninja.ninja_default_company_id'));
             $ninja_company->notification(new PayPalUnlinkedTransaction($order['id'], $transaction_reference))->ninja();
             return;
         }

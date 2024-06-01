@@ -110,7 +110,7 @@ class CheckDb extends Command
         $this->LogMessage('Checking - V5_DB1');
 
         foreach ($this->entities as $entity) {
-            $count_db_1 = $entity::on('db-ninja-01')->count();
+            $count_db_1 = $entity::on('contabile')->count();
             $count_db_2 = $entity::on('db-ninja-02a')->count();
 
             $diff = $count_db_1 - $count_db_2;
@@ -124,7 +124,7 @@ class CheckDb extends Command
 
         foreach ($this->entities as $entity) {
             $count_db_1 = $entity::on('db-ninja-02')->count();
-            $count_db_2 = $entity::on('db-ninja-01a')->count();
+            $count_db_2 = $entity::on('contabilea')->count();
 
             $diff = $count_db_1 - $count_db_2;
 

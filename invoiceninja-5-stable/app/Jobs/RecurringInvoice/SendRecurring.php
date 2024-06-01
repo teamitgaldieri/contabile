@@ -48,7 +48,7 @@ class SendRecurring implements ShouldQueue
      * @param RecurringInvoice $recurring_invoice
      * @param string $db
      */
-    public function __construct(public RecurringInvoice $recurring_invoice, public string $db = 'db-ninja-01')
+    public function __construct(public RecurringInvoice $recurring_invoice, public string $db = 'contabile')
     {
         $this->recurring_invoice = $recurring_invoice;
         $this->db = $db;

@@ -18,9 +18,9 @@
                         <summary class="cursor-pointer focus:outline-none">Show code</summary>
                         <pre class="text-sm overflow-y-scroll bg-gray-100 p-4">
 -- Commands to create a MySQL database and user
-CREATE SCHEMA `db-ninja-01` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE SCHEMA `contabile` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE USER 'ninja'@'localhost' IDENTIFIED BY 'ninja';
-GRANT ALL PRIVILEGES ON `db-ninja-01`.* TO 'ninja'@'localhost';
+GRANT ALL PRIVILEGES ON `contabile`.* TO 'ninja'@'localhost';
 FLUSH PRIVILEGES;
                         </pre>
                     </details>
@@ -55,7 +55,7 @@ FLUSH PRIVILEGES;
                     {{ ctrans('texts.database') }}*
                 </dt>
                 <dd class="text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                    <input type="text" class="input w-full" name="db_database" required value="{{ old('database') ?: 'db-ninja-01'}}">
+                    <input type="text" class="input w-full" name="db_database" required value="{{ old('database') ?: 'contabile'}}">
                 </dd>
             </div>
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:flex sm:items-center">

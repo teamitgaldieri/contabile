@@ -44,7 +44,7 @@ class MultiDB
 {
     public const DB_PREFIX = 'db-ninja-';
 
-    public static $dbs = ['db-ninja-01', 'db-ninja-02'];
+    public static $dbs = ['contabile', 'db-ninja-02'];
 
     private static $protected_domains = [
         'www',

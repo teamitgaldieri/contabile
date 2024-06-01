@@ -66,7 +66,7 @@ class CreateSingleAccount extends Command
 
     protected $description = 'Create Single Sample Account';
 
-    protected $signature = 'ninja:create-single-account {gateway=all} {--database=db-ninja-01}';
+    protected $signature = 'ninja:create-single-account {gateway=all} {--database=contabile}';
 
     protected $invoice_repo;
 

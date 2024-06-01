@@ -208,7 +208,7 @@ class CheckData extends Command
     private function checkDuplicateRecurringInvoices()
     {
         if (Ninja::isHosted()) {
-            $c = Client::on('db-ninja-01')->where('company_id', config('ninja.ninja_default_company_id'))
+            $c = Client::on('contabile')->where('company_id', config('ninja.ninja_default_company_id'))
                 ->with('recurring_invoices')
                 ->cursor()
                 ->each(function ($client) {
@@ -862,10 +862,10 @@ class CheckData extends Command
     public function checkAccountStatuses()
     {
         Account::where('plan_expires', '<=', now()->subDays(2))->cursor()->each(function ($account) {
-            $client = Client::on('db-ninja-01')->where('company_id', config('ninja.ninja_default_company_id'))->where('custom_value2', $account->key)->first();
+            $client = Client::on('contabile')->where('company_id', config('ninja.ninja_default_company_id'))->where('custom_value2', $account->key)->first();
 
             if ($client) {
-                $payment = Payment::on('db-ninja-01')
+                $payment = Payment::on('contabile')
                               ->where('company_id', config('ninja.ninja_default_company_id'))
                               ->where('client_id', $client->id)
                               ->where('date', '>=', now()->subDays(2))
@@ -1014,7 +1014,7 @@ class CheckData extends Command
         }
 
         CompanyUser::where('is_owner', 1)->where('ninja_portal_url', '')->cursor()->each(function ($cu) {
-            $cc = ClientContact::on('db-ninja-01')->where('company_id', config('ninja.ninja_default_company_id'))->where('email', $cu->user->email)->first();
+            $cc = ClientContact::on('contabile')->where('company_id', config('ninja.ninja_default_company_id'))->where('email', $cu->user->email)->first();
 
             if ($cc) {
                 $ninja_portal_url = config('ninja.ninja_client_portal')."/client/ninja/{$cc->contact_key}/{$cu->account->key}";
@@ -1024,7 +1024,7 @@ class CheckData extends Command
 
                 $this->logMessage("Fixing - {$ninja_portal_url}");
             } else {
-                $c =  Client::on('db-ninja-01')->where("company_id", config('ninja.ninja_default_company_id'))->where('custom_value2', $cu->account->key)->first();
+                $c =  Client::on('contabile')->where("company_id", config('ninja.ninja_default_company_id'))->where('custom_value2', $cu->account->key)->first();
 
                 if ($c) {
                     $cc = $c->contacts()->first();

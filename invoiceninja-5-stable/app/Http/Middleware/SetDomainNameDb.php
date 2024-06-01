@@ -55,7 +55,7 @@ class SetDomainNameDb
                 if ($request->json) {
                     return response()->json($error, 403);
                 } else {
-                    MultiDB::setDb('db-ninja-01');
+                    MultiDB::setDb('contabile');
                     nlog('I could not set the DB - defaulting to DB1');
                     //abort(400, 'Domain not found');
                 }
@@ -72,7 +72,7 @@ class SetDomainNameDb
                 if ($request->json) {
                     return response()->json($error, 403);
                 } else {
-                    MultiDB::setDb('db-ninja-01');
+                    MultiDB::setDb('contabile');
                     nlog('I could not set the DB - defaulting to DB1');
                 }
             }

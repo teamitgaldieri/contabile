@@ -113,7 +113,7 @@ class Kernel extends ConsoleKernel
             /* Checks ACH verification status and updates state to authorize when verified */
             $schedule->job(new CheckACHStatus())->everySixHours()->withoutOverlapping()->name('ach-status-job')->onOneServer();
 
-            $schedule->command('ninja:check-data --database=db-ninja-01')->dailyAt('02:10')->withoutOverlapping()->name('check-data-db-1-job')->onOneServer();
+            $schedule->command('ninja:check-data --database=contabile')->dailyAt('02:10')->withoutOverlapping()->name('check-data-db-1-job')->onOneServer();
 
             $schedule->command('ninja:check-data --database=db-ninja-02')->dailyAt('02:20')->withoutOverlapping()->name('check-data-db-2-job')->onOneServer();
 

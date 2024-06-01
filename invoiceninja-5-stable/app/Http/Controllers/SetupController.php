@@ -111,7 +111,7 @@ class SetupController extends Controller
         ];
 
         if (config('ninja.db.multi_db_enabled')) {
-            $env_values['DB_CONNECTION'] = 'db-ninja-01';
+            $env_values['DB_CONNECTION'] = 'contabile';
         }
 
         if (config('ninja.preconfigured_install')) {

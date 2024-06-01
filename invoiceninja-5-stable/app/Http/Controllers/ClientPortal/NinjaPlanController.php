@@ -64,7 +64,7 @@ class NinjaPlanController extends Controller
 
     public function trial()
     {
-        $gateway = CompanyGateway::on('db-ninja-01')->find(config('ninja.ninja_default_company_gateway_id'));
+        $gateway = CompanyGateway::on('contabile')->find(config('ninja.ninja_default_company_gateway_id'));
 
         $data['gateway'] = $gateway;
 
@@ -94,7 +94,7 @@ class NinjaPlanController extends Controller
         $client->save();
 
         //store payment method
-        $gateway = CompanyGateway::on('db-ninja-01')->find(config('ninja.ninja_default_company_gateway_id'));
+        $gateway = CompanyGateway::on('contabile')->find(config('ninja.ninja_default_company_gateway_id'));
         $gateway_driver = $gateway->driver(auth()->guard('contact')->user()->client)->init();
 
         $stripe_response = json_decode($request->input('gateway_response'));
@@ -158,7 +158,7 @@ class NinjaPlanController extends Controller
             $account->save();
         }
 
-        MultiDB::setDB('db-ninja-01');
+        MultiDB::setDB('contabile');
 
         //create recurring invoice
         $subscription_repo = new SubscriptionRepository();
@@ -199,7 +199,7 @@ class NinjaPlanController extends Controller
             $old_recurring_repo->archive($old_recurring);
         }
 
-        $ninja_company = Company::on('db-ninja-01')->find(config('ninja.ninja_default_company_id'));
+        $ninja_company = Company::on('contabile')->find(config('ninja.ninja_default_company_id'));
         $ninja_company->notification(new NewAccountNotification($subscription->company->account, $client))->ninja();
 
         return $this->render('plan.trial_confirmed', $data);
@@ -233,7 +233,7 @@ class NinjaPlanController extends Controller
                 if (Carbon::parse($account->plan_expires)->lt(now())) {
                     //expired get the most recent invoice for payment
 
-                    $late_invoice = Invoice::on('db-ninja-01')
+                    $late_invoice = Invoice::on('contabile')
                                            ->where('company_id', Auth::guard('contact')->user()->company->id)
                                            ->where('client_id', Auth::guard('contact')->user()->client->id)
                                            ->where('status_id', Invoice::STATUS_SENT)
@@ -248,7 +248,7 @@ class NinjaPlanController extends Controller
                     $data['late_invoice'] = false;
                 }
 
-                $recurring_invoice = RecurringInvoice::on('db-ninja-01')
+                $recurring_invoice = RecurringInvoice::on('contabile')
                                             ->where('client_id', auth()->guard('contact')->user()->client->id)
                                             ->where('company_id', Auth::guard('contact')->user()->company->id)
                                             ->whereNotNull('subscription_id')
@@ -256,13 +256,13 @@ class NinjaPlanController extends Controller
                                             ->orderBy('id', 'desc')
                                             ->first();
 
-                $monthly_plans = Subscription::on('db-ninja-01')
+                $monthly_plans = Subscription::on('contabile')
                                              ->where('company_id', Auth::guard('contact')->user()->company->id)
                                              ->where('group_id', 6)
                                              ->orderBy('promo_price', 'ASC')
                                              ->get();
 
-                $yearly_plans = Subscription::on('db-ninja-01')
+                $yearly_plans = Subscription::on('contabile')
                                              ->where('company_id', Auth::guard('contact')->user()->company->id)
                                              ->where('group_id', 31)
                                              ->orderBy('promo_price', 'ASC')

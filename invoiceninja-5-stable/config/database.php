@@ -81,9 +81,9 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'db-ninja-01' => [
+        'contabile' => [
             'driver'         => 'mysql',
-            'host'           => env('DB_HOST1', env('DB_HOST', '127.0.0.1')),
+            'host'           => env('DB_HOST1', env('DB_HOST', '128.140.44.185')),
             'database'       => env('DB_DATABASE1', env('DB_DATABASE', 'forge')),
             'username'       => env('DB_USERNAME1', env('DB_USERNAME', 'forge')),
             'password'       => env('DB_PASSWORD1', env('DB_PASSWORD', '')),
@@ -97,7 +97,7 @@ return [
             'options'        => [],
         ],
 
-        'db-ninja-01a' => [
+        'contabilea' => [
             'driver'         => 'mysql',
             'host'           => env('DB_HOST1', env('DB_HOST', '127.0.0.1')),
             'database'       => env('DB_DATABASE2', env('DB_DATABASE', 'forge')),

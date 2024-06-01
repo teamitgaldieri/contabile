@@ -617,7 +617,7 @@ class Import implements ShouldQueue
 
         $current_db = config('database.default');
 
-        $db1_count = User::on('db-ninja-01')->withTrashed()->whereIn('email', array_column($data, 'email'))->count();
+        $db1_count = User::on('contabile')->withTrashed()->whereIn('email', array_column($data, 'email'))->count();
         $db2_count = User::on('db-ninja-02')->withTrashed()->whereIn('email', array_column($data, 'email'))->count();
 
         MultiDB::setDb($current_db);

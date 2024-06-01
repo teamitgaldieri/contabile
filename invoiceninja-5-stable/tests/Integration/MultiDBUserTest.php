@@ -47,7 +47,7 @@ class MultiDBUserTest extends TestCase
 
         $ac->setHidden(['hashed_id']);
 
-        $account = Account::on('db-ninja-01')->create($ac->toArray());
+        $account = Account::on('contabile')->create($ac->toArray());
         $account2 = Account::on('db-ninja-02')->create($ac->toArray());
 
         $company = Company::factory()->make([
@@ -61,7 +61,7 @@ class MultiDBUserTest extends TestCase
         $company->setHidden(['settings', 'settings_object', 'hashed_id']);
         $company2->setHidden(['settings', 'settings_object', 'hashed_id']);
 
-        $coco = Company::on('db-ninja-01')->create($company->toArray());
+        $coco = Company::on('contabile')->create($company->toArray());
 
         $coco2 = Company::on('db-ninja-02')->create($company2->toArray());
 
@@ -92,15 +92,15 @@ class MultiDBUserTest extends TestCase
 
         ];
 
-        $user = User::on('db-ninja-01')->create($user);
+        $user = User::on('contabile')->create($user);
 
         // $cu = CompanyUserFactory::create($user->id, $coco->id, $account->id);
         // $cu->is_owner = true;
         // $cu->is_admin = true;
-        // $cu->setConnection('db-ninja-01');
+        // $cu->setConnection('contabile');
         // $cu->save();
 
-        CompanyUser::on('db-ninja-01')->create([
+        CompanyUser::on('contabile')->create([
             'company_id' => $coco->id,
             'account_id' => $account->id,
             'user_id' => $user->id,
@@ -120,7 +120,7 @@ class MultiDBUserTest extends TestCase
 
         $this->token = \Illuminate\Support\Str::random(40);
 
-        $this->company_token = CompanyToken::on('db-ninja-01')->create([
+        $this->company_token = CompanyToken::on('contabile')->create([
             'user_id' => $user->id,
             'company_id' => $coco->id,
             'account_id' => $account->id,
@@ -175,7 +175,7 @@ class MultiDBUserTest extends TestCase
      */
     public function test_set_db_invokes()
     {
-        $this->expectNotToPerformAssertions(MultiDB::setDB('db-ninja-01'));
+        $this->expectNotToPerformAssertions(MultiDB::setDB('contabile'));
     }
 
     public function test_cross_db_user_linking_fails_appropriately()
@@ -245,7 +245,7 @@ class MultiDBUserTest extends TestCase
 
     protected function tearDown() :void
     {
-        DB::connection('db-ninja-01')->table('users')->delete();
+        DB::connection('contabile')->table('users')->delete();
         DB::connection('db-ninja-02')->table('users')->delete();
 
         config(['database.default' => config('ninja.db.default')]);

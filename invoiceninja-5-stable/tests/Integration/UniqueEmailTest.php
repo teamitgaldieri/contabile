@@ -45,7 +45,7 @@ class UniqueEmailTest extends TestCase
         $ac = Account::factory()->make();
         $ac->setHidden(['hashed_id']);
 
-        $account = Account::on('db-ninja-01')->create($ac->toArray());
+        $account = Account::on('contabile')->create($ac->toArray());
 
         $company = Company::factory()->make([
             'account_id' => $account->id,
@@ -53,7 +53,7 @@ class UniqueEmailTest extends TestCase
 
         $company->setHidden(['settings', 'settings_object', 'hashed_id']);
 
-        Company::on('db-ninja-01')->create($company->toArray());
+        Company::on('contabile')->create($company->toArray());
 
         $ac2 = Account::factory()->make();
         $ac2->setHidden(['hashed_id']);
@@ -81,10 +81,10 @@ class UniqueEmailTest extends TestCase
             'account_id' => $account2->id,
         ];
 
-        $user_find = User::on('db-ninja-01')->where('email', 'user@example.com')->first();
+        $user_find = User::on('contabile')->where('email', 'user@example.com')->first();
 
         if (! $user_find) {
-            User::on('db-ninja-01')->create($user);
+            User::on('contabile')->create($user);
         }
 
         $user_find = User::on('db-ninja-02')->where('email', 'user@example.com')->first();
@@ -106,7 +106,7 @@ class UniqueEmailTest extends TestCase
 
     protected function tearDown() :void
     {
-        DB::connection('db-ninja-01')->table('users')->delete();
+        DB::connection('contabile')->table('users')->delete();
         DB::connection('db-ninja-02')->table('users')->delete();
     }
 }

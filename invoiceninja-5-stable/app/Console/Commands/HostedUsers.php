@@ -47,7 +47,7 @@ class HostedUsers extends Command
      */
     public function handle()
     {
-        Company::on('db-ninja-01')->each(function ($company) {
+        Company::on('contabile')->each(function ($company) {
             if (Ninja::isHosted()) {
                 (new \Modules\Admin\Jobs\Account\NinjaUser([], $company))->handle();
             }

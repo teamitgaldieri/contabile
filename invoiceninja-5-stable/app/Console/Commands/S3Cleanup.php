@@ -54,7 +54,7 @@ class S3Cleanup extends Command
         //     return;
         // }
 
-        $c1 = Company::on('db-ninja-01')->pluck('company_key');
+        $c1 = Company::on('contabile')->pluck('company_key');
         $c2 = Company::on('db-ninja-02')->pluck('company_key');
 
         $merged = $c1->merge($c2)->toArray();
